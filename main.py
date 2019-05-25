@@ -15,7 +15,7 @@ def check_extension(fileName, ext):
 
 
 def editAR(osuFile, newAR):
-    for line in fileinput.FileInput("file", inplace=1):
+    for line in fileinput.FileInput(osuFile, inplace=1):
         if line.split(':')[0] == 'ApproachRate':
             ar = line.split(':')[1]
             line = line.replace(ar, newAR)
