@@ -1,5 +1,7 @@
 import os
 import sys
+import fileinput
+
 
 
 
@@ -13,13 +15,10 @@ def check_extension(fileName, ext):
 
 
 def editAR(osuFile, newAR):
-    with open(osuFile, "rw"):
-        """
-        parse le fichier trouve la ligne ou il est écrit
-        ApproachRate: X
-        la modifie en changant X par newAR
-        """
-
+    for line in fileinput.FileInput("file", inplace=1):
+        if line.split(':')[0] == 'ApproachRate':
+            ar = line.split(':')[1]
+            line = line.replace(ar, newAR)
 
 
 for bmp in beatmaps_path:
@@ -29,6 +28,7 @@ for bmp in beatmaps_path:
     difficulty = [d for d in os.listdir(songs_dir + "\\" + bmp) if check_extension(d, "osu")]
     # il y en a une par difficulté
     print(difficulty)
+    editAR(difficulty, 8)
 
 
 
