@@ -10,14 +10,10 @@ while 1:
     cmd = input.split()[0]  # osef de l'opti
     if cmd == 'help':
         print('avalliable commands:')
-        print(' -nothing')
-        print(' -nothing again')
-    elif cmd == 'nothing':
-        print('ahah no')
+        print(' - editAR <new ar> : modifie l\'AR de toutes vos map en std, irréversible pour le moment attention)
+        print(' - exit/quit : pour quitter le cli')
     elif cmd in ['exit','quit']:
         break
-    elif cmd == 'help':
-        print('not yet implemented ')
     else:
         print('unknow command type help for help')
 

@@ -11,7 +11,8 @@ def editARInOsuFile(filePath, newAR):
     with open(filePath, 'wt') as wFile:
         for line in tmp:
             print(line)
-            if 'ApproachRate:' in line[:13]:
+            if 'ApproachRate:' in line:
+                print('yes')
                 wFile.write('ApproachRate:{}\n'.format(newAr))
             else:
                 wFile.write(line)
@@ -23,7 +24,7 @@ def getMod(osu_file):
     with open(osu_file, 'r', errors='ignore') as f:
         for line in f.readlines():
             if 'Mode:' in line or 'mode:' in line:
-                print(line)
+
                 return line.split(':')[1].strip()
         return -1
 

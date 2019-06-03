@@ -1,0 +1,2 @@
+-faire une fonction de backup pour restor toutes les AR à la normal(TROP TARD POUR KYSAN QUI JOUE MTN EN AR 8)
+-faire une interface avec tkinter ou pygame (soyons fou)
