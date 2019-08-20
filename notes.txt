@@ -1,2 +1,4 @@
 -faire une fonction de backup pour restor toutes les AR à la normal(TROP TARD POUR KYSAN QUI JOUE MTN EN AR 8)
 -faire une interface avec tkinter ou pygame (soyons fou)
+- la commande edit path <path> ne gère pas les paths avec des espaces donc nécésité de mieux géré les arguments entré dans le cli
+- faire une class OsuFile pour que ce soit pas le bordel

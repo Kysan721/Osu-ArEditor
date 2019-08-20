@@ -1,27 +1,79 @@
 import os
 
+def cat(filePath):
+    with open(filePath, 'r', encoding='utf-8') as rf:
+        lines = rf.readlines()
+        for line in lines:
+            print(line.strip())
 
-def editARInOsuFile(filePath, newAR):
-    newAr = str(newAR)      # au cas ou on passe un int
-    # on lis le fichier
-    with open(filePath, 'rt') as rFile:
+def isFileAlreadyEdited(filePath):
+    # il est déjà edité si il comptiens le champs 'backupAR:'
+    with open(filePath, 'r', encoding='utf-8') as rf:
+        lines = rf.readlines()
+        for line in lines:
+            if 'backupAR:' in line:
+                return True
+        return False
+
+
+def editAR(filePath, newAR):
+    newAR = str(newAR)
+    needBackup = not isFileAlreadyEdited(filePath)
+    
+    with open(filePath, 'rt', encoding='utf-8') as rFile:
         tmp = rFile.readlines()
 
     # on réecrit sur ce qu'il y a modifier
-    with open(filePath, 'wt') as wFile:
+    with open(filePath, 'wt', encoding='utf-8') as file:
         for line in tmp:
-            print(line)
+            #  on trouve la ligne de l'approche rate on modifie
             if 'ApproachRate:' in line:
-                print('yes')
-                wFile.write('ApproachRate:{}\n'.format(newAr))
+                # on fait une sauvegarde si besoin
+                if needBackup:
+                    backupAR = line.split('ApproachRate:')[1].strip()
+                    file.write('backupAR:{}\n'.format(backupAR))
+                
+                file.write('ApproachRate:{}\n'.format(newAR))
+            
             else:
-                wFile.write(line)
+                # si non on réecrit juste ce qu'il y avait déjà et qu'on a en mémoire (tmp)
+                file.write(line)
+
+def getBackupAR(filePath):
+    ar = ""
+    with open(filePath, 'rt', encoding='utf-8') as rf:
+        lines = rf.readlines()
+    for line in lines:                  # on lis chaque ligne jusqu'a trouvé le champs qui nous interesse
+        if "backupAR:" in line.strip():
+            ar = str(line.split('backupAR:')[1])        # on retrouve l'ancienne ar sur la ligne
+            return ar
+    return ''
+
+
+
+def restoreAR(filePath):
+    if isFileAlreadyEdited(filePath):
+        backupedAR = getBackupAR(filePath)
+
+    # on lis le fichier et on fait une copie en mémoire
+    with open(filePath, 'r', encoding='utf-8') as rf:
+        copy = rf.readlines()
+
+    with open(filePath, 'w', encoding='utf-8')as wf:
+        for line in copy:
+            if 'backupAR:' in line:      # on écrit rien pour supprimer le champs
+                pass
+            if 'ApproachRate:' in line:
+                wf.write('ApproachRate:{}\n'.format(backupedAR))
+            else:
+                wf.write(line)
+
 
 
 
 # (0=osu!, 1=osu!taiko, 2=osu!catch, 3=osu!mania)
 def getMod(osu_file):
-    with open(osu_file, 'r', errors='ignore') as f:
+    with open(osu_file, 'r',  encoding='utf-8') as f:
         for line in f.readlines():
             if 'Mode:' in line or 'mode:' in line:
 
@@ -47,3 +99,18 @@ def BMlistDifficulties(bm_folder_path):
 
 # pour les tests
 # editARInOsuFile('test.txt', '9')
+
+
+
+
+class OsuFile:
+    def __init__(self, path):
+        self.path = path
+    
+    def mod(self):
+        with open(self.path, 'r',  encoding='utf-8') as f:
+            for line in f.readlines():
+                if 'Mode:' in line or 'mode:' in line:
+
+                    return line.split(':')[1].strip()
+            return -1
