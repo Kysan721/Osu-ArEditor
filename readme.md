@@ -8,7 +8,7 @@ exemple pour moi: `edit path C:/Games/osu!/Songs`
 
 exemple d'uttilisation du programme:
 `edit ar 10`: met toutes vos maps en AR 10
-`restore`   : remets toutes vos maps comme elle était avant
+`restore`   : remets toutes vos maps comme elle était avant (attention c'est pas au point ça remet le bon AR mais la map est plus à jour)
 `help`      : vous affiche la liste des commandes disponible
 `exit`      : vous fait sortir du programme
 
