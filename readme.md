@@ -9,7 +9,7 @@ exemple pour moi: <br/>
 
 exemple d'uttilisation du programme: <br/>
 `edit ar 10`: met toutes vos maps en AR 10 <br/>
-`restore`   : remets toutes vos maps comme elle était avant (attention c'est pas au point ça remet le bon AR mais la map est plus à jour) <br />
+`restore`   : remets toutes vos maps comme elle était avant (attention c'est pas au point ça remet le bon AR mais la map est plus à jour) <br/>
 `help`      : vous affiche la liste des commandes disponible <br/>
 `exit`      : vous fait sortir du programme <br/>
 
